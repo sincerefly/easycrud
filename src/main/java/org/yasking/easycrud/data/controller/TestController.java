@@ -1,10 +1,10 @@
-package org.yasking.easycrud.controller;
+package org.yasking.easycrud.data.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.yasking.easycrud.service.TestService;
+import org.yasking.easycrud.data.service.TestService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,17 +22,17 @@ public class TestController {
         return data;
     }
 
-    // 使用 @Select注解方式从数据库查询数据
-    @RequestMapping(value = "/getVersion", method = RequestMethod.GET)
+    // MySQL版本号
+    @RequestMapping(value = "/myVersion", method = RequestMethod.GET)
     public String getVersion() {
         String version = testService.getVersion();
         return version;
     }
 
-    // 使用 XML中的 SQL来查询数据
-    @RequestMapping(value = "/getVersionFromXML", method = RequestMethod.GET)
-    public String getVersionFromXML() {
-        String version = testService.getVersionFromXML();
+    // PostgreSQL版本号（使用 @Select注解方式）
+    @RequestMapping(value = "/pgVersion", method = RequestMethod.GET)
+    public String getVersionFromPg() {
+        String version = testService.getVersionFromPg();
         return version;
     }
 }
