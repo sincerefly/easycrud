@@ -1,0 +1,12 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.yasking.easycrud.mapper.TestMapper">
+
+    <!-- 查询数据库版本 -->
+    <select id="getVersionFromXML" resultType="String" >
+        select version()
+    </select>
+
+</mapper>
