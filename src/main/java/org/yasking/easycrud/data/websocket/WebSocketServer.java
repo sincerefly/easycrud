@@ -2,11 +2,14 @@ package org.yasking.easycrud.data.websocket;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -72,11 +75,20 @@ public class WebSocketServer {
         this.session.getBasicRemote().sendText(message);
     }
 
-    //广播消息
+    /*
+        广播消息
+        fixedRate上一次开始执行时间点后n秒再次执行
+        fixedDelay上一次执行完毕时间点后n秒再次执行
+     */
+    @Scheduled(fixedRate = 3000)
     public static void broadcast(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date now = new Date();
+        String strDate = sdf.format(now);
+
         WebSocketServer.webSocketMap.forEach((k,v)->{
             try{
-                v.sendMessage("这是一条测试广播");
+                v.sendMessage("这是一条测试广播 " + strDate);
             } catch (Exception e){
                 e.printStackTrace();
             }
